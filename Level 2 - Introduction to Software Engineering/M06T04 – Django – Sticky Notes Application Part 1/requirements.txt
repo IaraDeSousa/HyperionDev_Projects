@@ -1,0 +1,14 @@
+asgiref==3.11.1
+astroid==4.0.4
+dill==0.4.1
+Django==6.0.2
+flake8==7.3.0
+graphviz==0.21
+isort==7.0.0
+mccabe==0.7.0
+platformdirs==4.9.1
+pycodestyle==2.14.0
+pyflakes==3.4.0
+pylint==4.0.4
+sqlparse==0.5.5
+tomlkit==0.14.0

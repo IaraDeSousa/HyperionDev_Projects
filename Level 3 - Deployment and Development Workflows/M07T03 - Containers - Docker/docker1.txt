@@ -1,0 +1,3 @@
+iaradesousa/python-app:latest
+
+https://hub.docker.com/repository/docker/iaradesousa/python-app/general

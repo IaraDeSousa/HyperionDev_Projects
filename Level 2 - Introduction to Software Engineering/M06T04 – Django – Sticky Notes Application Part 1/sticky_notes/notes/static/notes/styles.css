@@ -1,0 +1,37 @@
+body {
+    background-color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sticky-note-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sticky-note {
+    background-color: yellow;
+    position: relative;
+    width: 250px;
+    min-height: 250px;
+    padding: 20px; 
+}
+
+.note-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: 1px black;
+    margin-bottom: 10px;
+}
+
+.note-content {
+    font-size: 1rem;
+    color: #333;
+}
+
+.note-footer {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
