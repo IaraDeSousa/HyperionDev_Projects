@@ -1,0 +1,47 @@
+/* notes/static/notes/styles.css */
+
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sticky-note-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sticky-note {
+    background-color: #fff382;
+    width: 250px;
+    min-height: 250px;
+    padding: 20px;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    transition: transform .15s linear;
+    position: relative;
+}
+
+.sticky-note:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 7px rgba(0,0,0,.15);
+    z-index: 10;
+}
+
+.note-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+.note-content {
+    font-size: 1rem;
+    color: #333;
+}
+
+.note-footer {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}

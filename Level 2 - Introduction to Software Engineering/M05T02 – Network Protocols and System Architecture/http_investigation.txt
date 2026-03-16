@@ -1,0 +1,97 @@
+1. curl command ran: 
+curl -v https://httpbin.org/get
+
+Request headers:
+Host: httpbin.org
+User-Agent: curl/8.6.0
+Accept: */*
+
+Response headers: 
+date: Tue, 27 Jan 2026 12:41:30 GMT
+content-type: application/json
+content-length: 255
+server: gunicorn/19.9.0
+access-control-allow-origin: *
+access-control-allow-credentiFals: true
+
+HTTP status code: 
+HTTP/2 200 
+
+Connection workflow:
+The connection workflow: 
+DNS → TCP → TLS handshake → cert verification → ALPN → HTTP/2 stream → GET → JSON → keep-alive
+
+
+2. curl command ran: 
+curl -X POST https://httpbin.org/post \ 
+   -d "key=value" \ 
+   -H "Content-Type: application/x-www-form-urlencoded" 
+
+POST VS GET:
+The main difference between GET and POST is that GET is usually used when a browser requested an object that has been specified within the URL.
+POST is mainly used when a user has entered data onto the webpage. The contents of the page are dependent on the data entered by the user.
+
+PAYLOAD:
+The request body (payload) is used to send data from the client to the server. 
+It is used to submit form data such as login details or upload files.
+The body carried the data key=value so that the server can then use this.
+Without this, POST wouldn't operate.
+
+The key=value is transmitted within the HTTP request body.
+The server then decodes this by looking at content-type and content-length.
+
+RESPONSE BODY:
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key": "value"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Content-Length": "9", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Host": "httpbin.org", 
+    "User-Agent": "curl/8.6.0", 
+    "X-Amzn-Trace-Id": "Root=1-6978b6d5-6cd6753c0146bf2a59dfa1aa"
+  }, 
+  "json": null, 
+  "origin": "143.58.155.252", 
+  "url": "https://httpbin.org/post"
+}
+
+POST is a bit different as it just echoes what the request is. The body contains the payload, the headers from the request and any metadata abut the request.
+It also0 hides the HTTP status and response headers.
+
+
+3. curl commands ran:
+curl -I https://httpbin.org/status/404 
+curl -I https://httpbin.org/status/403
+
+404 (not found) error: 
+HTTP/2 404 
+date: Tue, 27 Jan 2026 13:10:16 GMT
+content-type: text/html; charset=utf-8
+content-length: 0
+server: gunicorn/19.9.0
+access-control-allow-origin: *
+access-control-allow-credentials: true
+
+This error indicates that there was a problem with the request and that the page was not found.
+The URL could be wrong, or the page could have been deleted.
+
+403 (forbidden) error:
+HTTP/2 403 
+date: Tue, 27 Jan 2026 13:10:42 GMT
+content-type: text/html; charset=utf-8
+content-length: 0
+server: gunicorn/19.9.0
+access-control-allow-origin: *
+access-control-allow-credentials: true
+
+This error indicates that there was a problem with the request and although the server understand the request, this is not authorised. 
+It tells us that the client doesn't have access to this page.
+
+We can see this error in the status line HTTP/2 404 or HTTP/2 403, not within the headers.
+Headers tell us the response but not the error.

@@ -1,0 +1,6 @@
+Total Tasks Generated = 2
+Tasks completed = 0
+Tasks incomplete = 6
+Tasks incomplete & overdue = 4
+Percentage tasks incomplete = 100.0%
+Percentage tasks overdue = 66.66666666666666%

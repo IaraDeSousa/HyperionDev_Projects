@@ -1,0 +1,17 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <h2>Rename Store</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Current Name: <strong>{{ store.name }}</strong></label>
+        <input type="text" name="store_name" value="{{ store.name }}" required>
+        
+        <button type="submit" class="btn btn-primary">Save New Name</button>
+        <div style="margin-top: 10px; text-align: center;">
+            <a href="{% url 'store_detail' store.id %}" style="color: gray; text-decoration: none;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
