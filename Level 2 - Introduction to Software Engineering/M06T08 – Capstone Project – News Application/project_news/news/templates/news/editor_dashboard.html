@@ -1,0 +1,33 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="editor-feed-container">
+    <h1 class="mb-2">Editor Review Desk</h1>
+    <p class="text-muted mb-4">Pending articles awaiting publication.</p>
+
+    {% for article in articles %}
+    <div class="review-item">
+        <div class="review-header">
+            <span class="review-date">{{ article.created_at|date:"d M Y" }}</span>
+            <span class="review-pub">{{ article.publisher.name|default:"Independent" }}</span>
+        </div>
+        
+        <div class="review-body">
+            <h2>{{ article.title }}</h2>
+            <p class="review-author">By: <strong>{{ article.author.username }}</strong></p>
+            <div class="review-content">
+                {{ article.content|truncatewords:50 }}
+            </div>
+        </div>
+
+        <div class="review-footer">
+            <a href="{% url 'approve_article' article.id %}" class="btn-approve">Approve & Publish Article</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="auth-wrapper" style="text-align: center;">
+        <p>All clear! No articles to review.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

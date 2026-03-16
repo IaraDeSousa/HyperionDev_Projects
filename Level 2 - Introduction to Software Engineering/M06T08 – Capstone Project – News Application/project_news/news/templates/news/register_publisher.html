@@ -1,0 +1,47 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <h2 class="text-center mb-4">Final Step</h2>
+    <p class="text-center text-muted mb-4">Set up your professional affiliation as a <strong>{{ account_type|title }}</strong>.</p>
+
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        
+        <input type="hidden" name="username" value="{{ username }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <input type="hidden" name="password" value="{{ password }}">
+        <input type="hidden" name="confirm_password" value="{{ password }}">
+        <input type="hidden" name="account_type" value="{{ account_type }}">
+        <input type="hidden" name="step" value="2">
+
+        <div class="publisher-selection-box" style="padding: 25px; background: #fff; border: 1px solid #000; margin-bottom: 20px; box-sizing: border-box;">
+            
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bold; display: block; margin-bottom: 8px;">Join an Existing Publisher</label>
+                <select name="existing_publisher" style="width: 100%; padding: 10px; border: 1px solid #ccc; box-sizing: border-box;">
+                    <option value="none">-- Select Publisher --</option>
+                    {% for pub in publishers %}
+                        <option value="{{ pub.id }}">{{ pub.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+    
+
+            <div class="mb-0">
+                <label class="form-label" style="font-weight: bold; display: block; margin-bottom: 8px;">Create a New Publisher</label>
+                <input type="text" name="new_publisher_name" placeholder="Enter organization name" style="width: 100%; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; margin-bottom: 0;">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-approve" style="width: 100%; border: 2px solid #000; cursor: pointer; display: block; box-sizing: border-box;">
+            Complete Registration
+        </button>
+    </form>
+
+    <div class="mt-4 text-center">
+        <a href="{% url 'register' %}" class="text-muted small" style="text-decoration: none; font-weight: bold; color: #000;">&larr; Go back and change role</a>
+    </div>
+</div>
+{% endblock %}

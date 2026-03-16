@@ -1,0 +1,44 @@
+{% extends 'news/base.html' %}
+{% block content %}
+<div class="news-container mt-5">
+    <div style="max-width: 900px; margin: auto; padding: 20px;">
+        <div class="d-flex justify-content-between align-items-center border-bottom border-dark pb-3 mb-4">
+            <h2 style="font-family: 'Playfair Display', serif; margin: 0;">Newsletter Archive</h2>
+            {% if user.groups.all.0.name == 'journalist' %}
+                <a href="{% url 'send_newsletter' %}" class="btn btn-dark" style="border-radius:0; font-weight: bold;">+ CREATE NEW</a>
+            {% endif %}
+        </div>
+        
+        {% if newsletters %}
+            {% for nl in newsletters %}
+            <div class="newsletter-row" style="padding: 20px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h4 style="margin: 0; font-size: 20px;">{{ nl.title }}</h4>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">
+                        By <strong>{{ nl.author.username }}</strong> &bull; {{ nl.created_at|date:"F d, Y" }}
+                    </p>
+                </div>
+                
+                <div class="actions d-flex gap-3 align-items-center">
+                    <form action="{% url 'resend_newsletter' nl.id %}" method="post" onsubmit="return confirm('Resend this newsletter to all current subscribers?');">
+                        {% csrf_token %}
+                        <button type="submit" style="color: black; font-size: 13px; text-decoration: none; font-weight: bold;">Resend</button>
+                    </form>
+
+                    <a href="{% url 'edit_newsletter' nl.id %}" style="color: blue; font-size: 13px; text-decoration: none; font-weight: bold;">Edit</a>
+                    
+                    <form action="{% url 'delete_newsletter' nl.id %}" method="post" onsubmit="return confirm('Remove from archive?');">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: red; font-size: 13px; font-weight: bold; cursor: pointer; padding: 0;">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="py-5 text-center text-muted">
+                <p>No newsletters archived yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

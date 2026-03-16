@@ -1,0 +1,65 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="news-container mt-5">
+    <div class="editor-container" style="max-width: 800px; margin: auto; padding: 40px;">
+        
+        <div class="meta-info" style="font-size: 14px; color: #666;">
+            Published on {{ article.created_at|date:"F d, Y" }}
+        </div>
+        
+        <h1 style="font-size: 48px; margin-bottom: 20px;">{{ article.title }}</h1>
+        
+        <p class="mb-5" style="border-bottom: 1px solid #eee; padding-bottom: 20px;">
+            By <strong>{{ article.author.username }}</strong> 
+            {% if article.publisher %} | <em>{{ article.publisher.name }}</em>{% endif %}
+        </p>
+
+        <div class="article-body" style="font-size: 19px; line-height: 1.8; margin-bottom: 50px;">
+            {{ article.content|linebreaks }}
+        </div>
+
+        <hr style="border-top: 2px solid #000;">
+
+        <div class="subscription-zone py-4">
+            <h4>Enjoyed this article?</h4>
+            <div class="d-flex gap-2 mt-3">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="follow_journalist" value="true" class="btn btn-dark" style="border-radius: 0;">
+                        Follow {{ article.author.username }}
+                    </button>
+                </form>
+
+                {% if article.publisher %}
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="follow_publisher" value="true" class="btn btn-outline-dark" style="border-radius: 0;">
+                        Follow {{ article.publisher.name }}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="mt-5">
+            <a href="{% url 'article_list' %}" style="color: #000; text-decoration: none; font-weight: bold;">&larr; Back to Headlines</a>
+        </div>
+
+        {% if user.is_authenticated %}
+            {% if user == article.author or user in article.publisher.editors.all %}
+                <div style="margin-top: 60px; padding-top: 20px; border-top: 1px dashed #ccc;">
+                    <p style="font-size: 12px; text-transform: uppercase; color: #888;">Staff Tools ({{ article.publisher.name|default:"Independent" }})</p>
+                    <a href="{% url 'edit_article' article.id %}" style="margin-right: 15px; color: blue; font-weight: bold; text-decoration: none;">Edit Article</a>
+                    
+                    <form action="{% url 'delete_article' article.id %}" method="post" style="display:inline;" onsubmit="return confirm('Permanently delete this article?');">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: red; cursor: pointer; padding: 0; font-size: 16px; font-weight: bold;">Delete Article</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

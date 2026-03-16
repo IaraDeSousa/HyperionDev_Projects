@@ -1,0 +1,51 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <h2 class="text-center mb-4">Step 1: Account Info</h2>
+    
+    {% if error %}
+        <div style="color: red; margin-bottom: 10px; font-weight: bold;">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" placeholder="Choose a username" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" placeholder="email@example.com" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" placeholder="Create a strong password" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Repeat your password" required>
+        </div>
+        <div class="mb-4">
+            <label class="form-label d-block">I want to join as a:</label>
+            <div class="btn-group w-100">
+                <input type="radio" class="btn-check" name="account_type" id="journalist" value="journalist" checked>
+                <label class="btn btn-outline-primary" for="journalist">Journalist</label>
+
+                <input type="radio" class="btn-check" name="account_type" id="reader" value="reader">
+                <label class="btn btn-outline-primary" for="reader">Reader</label>
+
+                <input type="radio" class="btn-check" name="account_type" id="editor" value="editor">
+                <label class="btn btn-outline-primary" for="editor">Editor</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Next Step</button>
+    </form>
+</div>
+{% endblock %}

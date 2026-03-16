@@ -1,0 +1,32 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="auth-wrapper" style="max-width: 800px; margin: 60px auto; padding: 40px; border: 2px solid #000;">
+    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 30px;">Edit Article</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-4">
+            <label style="display: block; font-weight: bold; margin-bottom: 10px;">Article Title</label>
+            <input type="text" name="title" value="{{ article.title }}" required 
+                   style="width: 100%; padding: 12px; border: 1px solid #ccc; box-sizing: border-box;">
+        </div>
+
+        <div class="mb-4">
+            <label style="display: block; font-weight: bold; margin-bottom: 10px;">Content</label>
+            <textarea name="content" rows="15" required 
+                      style="width: 100%; padding: 15px; border: 1px solid #ccc; font-family: 'Roboto', sans-serif; box-sizing: border-box; line-height: 1.6;">{{ article.content }}</textarea>
+        </div>
+
+        <button type="submit" class="btn-approve" 
+                style="width: 100%; background: #28a745; color: #fff; border: 2px solid #000; padding: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer;">
+            Save Changes
+        </button>
+    </form>
+
+    <div class="mt-4 text-center">
+        <a href="{% url 'article_detail' article.id %}" style="color: #666; text-decoration: none; font-size: 14px;">&larr; Cancel and go back</a>
+    </div>
+</div>
+{% endblock %}

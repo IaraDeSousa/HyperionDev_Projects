@@ -1,0 +1,36 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="auth-wrapper" style="margin: 0; width: 100%; max-width: 100%;">
+                <h3>Submit Article</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <label>Title</label>
+                    <input type="text" name="title" required placeholder="Article Headline">
+                    
+                    <label>Publication</label>
+                    <select name="publisher" style="width: 100%; padding: 10px; margin-bottom: 20px;">
+                        <option value="independent">Independent (No Publisher)</option>
+                        {% for pub in publishers %}
+                            <option value="{{ pub.id }}">{{ pub.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Content</label>
+                    <textarea name="content" rows="10" style="width: 100%; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;" required></textarea>
+
+                    <button type="submit" class="btn btn-primary w-100">Submit for Review</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

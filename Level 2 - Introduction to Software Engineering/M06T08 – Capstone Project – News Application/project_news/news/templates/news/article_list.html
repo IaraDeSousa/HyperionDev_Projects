@@ -1,0 +1,26 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="news-container">
+    <h1 class="text-center my-5">LATEST HEADLINES</h1>
+
+    <div class="news-grid">
+        {% for article in articles %}
+            {% if article.is_approved %}
+            <div class="news-card">
+                <div class="meta-info">
+                    By {{ article.author.username }} | {{ article.publisher.name}}
+                </div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content|truncatewords:20 }}</p>
+                <a href="{% url 'article_detail' article.id %}" class="btn btn-outline-dark btn-sm">Read Full Story</a>
+            </div>
+            {% endif %}
+        {% empty %}
+            <div class="text-center py-5">
+                <p>No news is good news. Check back later!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
